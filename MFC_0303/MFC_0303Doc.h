@@ -34,7 +34,10 @@ public:
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
-
+	int a;
+	CString s;
+	CString A;
+	int count;
 protected:
 
 // 生成的消息映射函数

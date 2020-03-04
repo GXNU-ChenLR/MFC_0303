@@ -30,7 +30,10 @@ END_MESSAGE_MAP()
 CMFC_0303Doc::CMFC_0303Doc()
 {
 	// TODO: 在此添加一次性构造代码
-
+	s = _T("我是***");
+	a = 1;
+	A.Format(_T("%d"), a);
+	count = 0;
 }
 
 CMFC_0303Doc::~CMFC_0303Doc()

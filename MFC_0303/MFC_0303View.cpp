@@ -22,6 +22,8 @@
 IMPLEMENT_DYNCREATE(CMFC_0303View, CView)
 
 BEGIN_MESSAGE_MAP(CMFC_0303View, CView)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CMFC_0303View 构造/析构
@@ -46,12 +48,26 @@ BOOL CMFC_0303View::PreCreateWindow(CREATESTRUCT& cs)
 
 // CMFC_0303View 绘制
 
-void CMFC_0303View::OnDraw(CDC* /*pDC*/)
+void CMFC_0303View::OnDraw(CDC* pDC)
 {
 	CMFC_0303Doc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+	//第一题
+	/*CString s;
+	s = _T("我是***");
+
+	int a = 1;
+	CString A;
+	A.Format(_T("%d"), a);
+
+	pDC->TextOutW(100, 200, s);
+	pDC->TextOutW(100, 300, A);*/
+
+	//第二题
+	pDC->TextOutW(200, 200, pDoc->s);
+	pDC->TextOutW(200, 300, pDoc->A);
 
 	// TODO: 在此处为本机数据添加绘制代码
 }
@@ -79,3 +95,30 @@ CMFC_0303Doc* CMFC_0303View::GetDocument() const // 非调试版本是内联的
 
 
 // CMFC_0303View 消息处理程序
+
+
+void CMFC_0303View::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	CMFC_0303Doc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	pDoc->count += 1;
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CMFC_0303View::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	CMFC_0303Doc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	CClientDC dc(this);
+	CString num;
+	num.Format(_T("%d"), pDoc->count);
+	dc.TextOutW(100, 300, num);
+	CView::OnRButtonDown(nFlags, point);
+}
